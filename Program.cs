@@ -8,11 +8,12 @@ namespace TImCoreyLambdaLesson
 {
     class Program
     {
-        private static List<ContactModel> data;
+        private static List<ContactModel> contacts;
+        private static List<AddressModel> addresses;
 
         static void Main(string[] args)
         {
-            data = SampleData.GetContactData();
+            contacts = SampleData.GetContactData();
 
             //Lambda Tests:
             Where();
@@ -22,15 +23,22 @@ namespace TImCoreyLambdaLesson
             OrderByAscending();
             OrderByDescending();
 
+            //Linq Test:
+            FromWhereSelect();
+
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
         }
 
+
+        #region LambdaTests
+        //Lambda tests
+        //Simple examples of Lambda syntax
         private static void Where()
         {
             Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
-            var results = data.Where(x => x.Addresses.Count > 1);
+            var results = contacts.Where(x => x.Addresses.Count > 1);
 
             foreach (var item in results)
             {
@@ -49,7 +57,7 @@ namespace TImCoreyLambdaLesson
             //Select outputs Ienumerable<string>
             //Note this trims down the input type, ContactModel, and outputs
             //A new object, just a list of strings
-            var results = data.Select(x => x.FirstName);
+            var results = contacts.Select(x => x.FirstName);
 
             foreach (var item in results)
             {
@@ -67,7 +75,7 @@ namespace TImCoreyLambdaLesson
 
             //Take doesn't need a Func, just an int.
             //How many items do you want? Returns IEnumerable<ContactModel>
-            var results = data.Take(2);
+            var results = contacts.Take(2);
 
             foreach (var item in results)
             {
@@ -84,7 +92,7 @@ namespace TImCoreyLambdaLesson
             Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
             //Notice you can chain linq calls
-            var results = data.Skip(2).Take(2);
+            var results = contacts.Skip(2).Take(2);
 
             foreach (var item in results)
             {
@@ -93,6 +101,8 @@ namespace TImCoreyLambdaLesson
 
             Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
+
+
 
         private static void OrderByAscending()
         {
@@ -100,7 +110,7 @@ namespace TImCoreyLambdaLesson
             Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
             //Takes a Func
-            var results = data.OrderBy(x => x.FirstName);
+            var results = contacts.OrderBy(x => x.FirstName);
 
             foreach (var item in results)
             {
@@ -109,6 +119,8 @@ namespace TImCoreyLambdaLesson
 
             Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
+
+
 
         private static void OrderByDescending()
         {
@@ -116,7 +128,35 @@ namespace TImCoreyLambdaLesson
             Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
             //Takes a Func
-            var results = data.OrderByDescending(x => x.FirstName);
+            var results = contacts.OrderByDescending(x => x.FirstName);
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName}");
+            }
+
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
+        }
+        #endregion LambdaTests
+
+        #region LinqTests
+        //Here are more complicated examples of SQL-like LINQ query syntax
+
+        private static void FromWhereSelect()
+        {
+
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
+
+            //Like SQL, but gets order right!
+            //Start with From, where you pull data from
+            //Go to Where, with conditions
+            //Then do Select to tell what data to take out of the data source
+
+
+            //This example returns the addresses just as the Id (1,2,3), no Join
+            var results = (from c in contacts  //c is alias
+                           where c.Addresses.Count > 1
+                           select c);  
 
             foreach (var item in results)
             {
@@ -126,7 +166,7 @@ namespace TImCoreyLambdaLesson
             Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
 
-
+        #endregion LinqTests
 
 
 
