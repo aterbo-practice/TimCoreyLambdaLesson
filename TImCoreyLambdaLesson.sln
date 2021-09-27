@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.810.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TImCoreyLambdaLesson", "TImCoreyLambdaLesson.csproj", "{4662EA1C-D333-406B-BABF-3992F13C787F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8C14E610-1AAB-4ABE-8F66-59C7C26BF26A}"
+	ProjectSection(SolutionItems) = preProject
+		ClassNotes.txt = ClassNotes.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

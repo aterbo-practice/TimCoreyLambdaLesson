@@ -9,5 +9,11 @@ namespace TImCoreyLambdaLesson
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
         }
+
+        private static void LambdaTest()
+        {
+            var data = SampleData.GetContactData();
+
+        }
     }
 }
