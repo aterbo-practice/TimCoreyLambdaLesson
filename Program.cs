@@ -25,9 +25,11 @@ namespace TImCoreyLambdaLesson
             OrderByAscending();
             OrderByDescending();
             */
+
             //Linq Test:
             FromWhereSelect();
             FromJoinSelect();
+            FromSelectWhereTwoSources();
 
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
@@ -171,6 +173,7 @@ namespace TImCoreyLambdaLesson
             Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
 
+
         private static void FromJoinSelect()
         {
 
@@ -179,8 +182,8 @@ namespace TImCoreyLambdaLesson
             //This joins the two data lists (One to many, not many to many)
             //Returns a new anonymous object, created on the fly
             //need to use var for this, since it's unnamed and anonymous
-            //this is what car was really used for
-            var results = (from c in contacts  //c is alias
+            //this is what var was really created for
+            var results = (from c in contacts  
                            join a in addresses
                            on c.Id equals a.ContactId
                            select new { c.FirstName, c.LastName, a.City, a.State });
@@ -189,6 +192,30 @@ namespace TImCoreyLambdaLesson
             {
                 Console.WriteLine($"{item.FirstName} {item.LastName} " +
                     $"from {item.City}, {item.State}");
+            }
+
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
+        }
+
+
+        private static void FromSelectWhereTwoSources()
+        {
+
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
+
+            //Looks across two data sources and creates new Address item within
+            //anonymous object in the result
+            var results = (from c in contacts
+                           select new { c.FirstName,
+                                        c.LastName,
+                                        Addresses = addresses.Where(x =>
+                                        x.ContactId == c.Id) });
+                           
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName} " +
+                    $"- {item.Addresses.Count() }");
             }
 
             Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
