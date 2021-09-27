@@ -22,16 +22,17 @@ namespace TImCoreyLambdaLesson
 
         public static List<AddressModel> GetAddressData()
         {
+            //One to Many Relationship 
             List<AddressModel> output = new List<AddressModel>
             {
                 new AddressModel{ Id = 1, ContactId = 1, City = "New Orleans", State = "LA" },
                 new AddressModel{ Id = 2, ContactId = 1, City = "Ridgway", State = "PA" },
                 new AddressModel{ Id = 3, ContactId = 1, City = "Pittsburgh", State = "PA" },
-                new AddressModel{ Id = 4, ContactId = 2, City = "Scranton", State = "PA" },
-                new AddressModel{ Id = 5, ContactId = 3, City = "Scranton", State = "PA" },
-                new AddressModel{ Id = 6, ContactId = 4, City = "Scranton", State = "PA" },
-                new AddressModel{ Id = 7, ContactId = 4, City = "Scranton", State = "PA" },
-                new AddressModel{ Id = 8, ContactId = 5, City = "Scranton", State = "PA" }
+                new AddressModel{ Id = 4, ContactId = 2, City = "Ridgway", State = "PA" },
+                new AddressModel{ Id = 5, ContactId = 3, City = "Pittsburgh", State = "PA" },
+                new AddressModel{ Id = 6, ContactId = 4, City = "Ridgway", State = "PA" },
+                new AddressModel{ Id = 7, ContactId = 4, City = "New Orleans", State = "LA" },
+                new AddressModel{ Id = 8, ContactId = 5, City = "Ridgway", State = "PA" }
             };
 
             return output;

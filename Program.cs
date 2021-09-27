@@ -14,17 +14,20 @@ namespace TImCoreyLambdaLesson
         static void Main(string[] args)
         {
             contacts = SampleData.GetContactData();
+            addresses = SampleData.GetAddressData();
 
             //Lambda Tests:
+            /*
             Where();
             Select();
             Take();
             SkipTake();
             OrderByAscending();
             OrderByDescending();
-
+            */
             //Linq Test:
             FromWhereSelect();
+            FromJoinSelect();
 
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
@@ -139,6 +142,8 @@ namespace TImCoreyLambdaLesson
         }
         #endregion LambdaTests
 
+
+
         #region LinqTests
         //Here are more complicated examples of SQL-like LINQ query syntax
 
@@ -161,6 +166,29 @@ namespace TImCoreyLambdaLesson
             foreach (var item in results)
             {
                 Console.WriteLine($"{item.FirstName} {item.LastName}");
+            }
+
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
+        }
+
+        private static void FromJoinSelect()
+        {
+
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
+
+            //This joins the two data lists (One to many, not many to many)
+            //Returns a new anonymous object, created on the fly
+            //need to use var for this, since it's unnamed and anonymous
+            //this is what car was really used for
+            var results = (from c in contacts  //c is alias
+                           join a in addresses
+                           on c.Id equals a.ContactId
+                           select new { c.FirstName, c.LastName, a.City, a.State });
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName} " +
+                    $"from {item.City}, {item.State}");
             }
 
             Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
