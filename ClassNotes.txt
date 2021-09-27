@@ -1,1 +1,43 @@
 ﻿Linq/Lambda Class Notes
+
+=> is a lambda expression. Part of LINQ namespace
+
+Linq queries data either via lambda or query script.
+
+Lambda expressions are one-use methods defined inline
+
+var results = data.Where(x => x.Addresses.Count > 1);
+First x is method signature
+Part after => is a method body
+
+Method signature is the first line
+
+.Where takes in a data source (list, etc.)
+.Where<Models.ContactModel>, will operate on every ContactModel in data source
+
+Pass in a Func which a method you create to pass in on every Contact model, passes out a boolean
+This "Func" is the predicate
+
+
+var results = data.Where(x => x.Addresses.Count > 1);
+
+//Where(x => x.Addresses.Count > 1)
+
+private static bool RunMe(ContactModel x)
+{
+    return x.Addresses.Count > 1;
+}
+
+Microsoft .NET does the following simplifications/assumptions:
+1. Eliminate private and static.
+      bool RunMe(ContactModel x) { return x.Addresses.Count > 1; }
+2. Knows the Func input in .Where needs a boolean return
+      RunMe(ContactModel x) { return x.Addresses.Count > 1; }
+3. Funtion is being called immediately, so don't need the name
+      (ContactModel x) { return x.Addresses.Count > 1; }
+4. Knows that the call is for a ContactModel (data.Where)
+      (x) { return x.Addresses.Count > 1; }
+5. Know there's only one line of code, must be the return logic
+      (x) { x.Addresses.Count > 1; }
+6. Need a seperator symbol, use =>
+      x => x.Addresses.Count > 1

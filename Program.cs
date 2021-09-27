@@ -8,15 +8,47 @@ namespace TImCoreyLambdaLesson
     {
         static void Main(string[] args)
         {
+            LambdaTest1();
+            LambdaTest2();
+
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
         }
 
-        private static void LambdaTest()
+        private static void LambdaTest1()
         {
+            Console.WriteLine("Test 1");
+
             var data = SampleData.GetContactData();
 
             var results = data.Where(x => x.Addresses.Count > 1);
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName}");
+            }
+
+
+            Console.WriteLine("End Test 1");
+        }
+
+        private static void LambdaTest2()
+        {
+            Console.WriteLine("Test 2");
+
+            var data = SampleData.GetContactData();
+
+            //Select outputs Ienumerable<string>
+            //Note this trims down the input type, ContactModel, and outputs
+            //A new object, just a list of strings
+            var results = data.Select(x => x.FirstName);
+
+            foreach (var item in results)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine("End Test 2");
         }
 
         //This is the same method written out as the predicate above
