@@ -1,6 +1,14 @@
 ﻿Linq/Lambda Class Notes
 
+Important to know that this is all working with data that's already pulled
+into C# and not directly querying the database. Working with the DB requires
+Entity Framework, Dapper, etc. to do the data query to the DB.
+
+
 => is a lambda expression. Part of LINQ namespace
+
+Tip: Use Linq statements to make your code more readable and straighforward
+than creating objects and foreach loops, etc.
 
 Linq queries data either via lambda or query script.
 

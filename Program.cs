@@ -149,6 +149,9 @@ namespace TImCoreyLambdaLesson
 
         #region LinqTests
         //Here are more complicated examples of SQL-like LINQ query syntax
+        //These queries are used for more complicated queries or if you want more
+        //control over specifying the data return type, anonymous class, other
+        //objects created on the fly, etc.
 
         private static void WhereSelect()
         {
@@ -184,6 +187,7 @@ namespace TImCoreyLambdaLesson
             //Returns a new anonymous object, created on the fly
             //need to use var for this, since it's unnamed and anonymous
             //this is what var was really created for
+            //NOTE: Doesn't HAVE to be anonymous. Can create existing object type
             var results = (from c in contacts  
                            join a in addresses
                            on c.Id equals a.ContactId
