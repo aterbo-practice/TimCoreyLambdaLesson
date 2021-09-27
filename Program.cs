@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TImCoreyLambdaLesson.Models;
 
@@ -6,20 +7,24 @@ namespace TImCoreyLambdaLesson
 {
     class Program
     {
+        private static List<ContactModel> data;
+
         static void Main(string[] args)
         {
-            LambdaTest1();
-            LambdaTest2();
+            data = SampleData.GetContactData();
+
+            LambdaTestWhere();
+            LambdaTestSelect();
+            LambdaTestTake();
+            LambdaTestSkipTake();
 
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
         }
 
-        private static void LambdaTest1()
+        private static void LambdaTestWhere()
         {
-            Console.WriteLine("Test 1");
-
-            var data = SampleData.GetContactData();
+            Console.WriteLine("Test - Where");
 
             var results = data.Where(x => x.Addresses.Count > 1);
 
@@ -28,15 +33,12 @@ namespace TImCoreyLambdaLesson
                 Console.WriteLine($"{item.FirstName} {item.LastName}");
             }
 
-
-            Console.WriteLine("End Test 1");
+            Console.WriteLine("End Test - Where \n");
         }
 
-        private static void LambdaTest2()
+        private static void LambdaTestSelect()
         {
-            Console.WriteLine("Test 2");
-
-            var data = SampleData.GetContactData();
+            Console.WriteLine("Test - Select");
 
             //Select outputs Ienumerable<string>
             //Note this trims down the input type, ContactModel, and outputs
@@ -48,8 +50,42 @@ namespace TImCoreyLambdaLesson
                 Console.WriteLine(item);
             }
 
-            Console.WriteLine("End Test 2");
+            Console.WriteLine("End Test - Select \n");
         }
+
+        private static void LambdaTestTake()
+        {
+            Console.WriteLine("Test - Take");
+
+            //Take doesn't need a Func, just an int.
+            //How many items do you want? Returns IEnumerable<ContactModel>
+            var results = data.Take(2);
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName}");
+            }
+
+            Console.WriteLine("End Test - Take  \n");
+        }
+
+        private static void LambdaTestSkipTake()
+        {
+            Console.WriteLine("Test - Skip and Take");
+
+            //Notice you can chain linq calls
+            var results = data.Skip(2).Take(2);
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName}");
+            }
+
+            Console.WriteLine("End Test - Skip and Take  \n");
+        }
+
+
+        //Below is the explaination of the Lambda syntax
 
         //This is the same method written out as the predicate above
         //Where(x => x.Addresses.Count > 1)
