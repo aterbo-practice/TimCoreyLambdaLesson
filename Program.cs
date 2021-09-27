@@ -27,9 +27,10 @@ namespace TImCoreyLambdaLesson
             */
 
             //Linq Test:
-            FromWhereSelect();
-            FromJoinSelect();
-            FromSelectWhereTwoSources();
+            WhereSelect();
+            JoinSelect();
+            SelectWhereTwoSources();
+            SelectWhereManyToMany();
 
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
@@ -149,7 +150,7 @@ namespace TImCoreyLambdaLesson
         #region LinqTests
         //Here are more complicated examples of SQL-like LINQ query syntax
 
-        private static void FromWhereSelect()
+        private static void WhereSelect()
         {
 
             Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
@@ -174,7 +175,7 @@ namespace TImCoreyLambdaLesson
         }
 
 
-        private static void FromJoinSelect()
+        private static void JoinSelect()
         {
 
             Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
@@ -198,7 +199,7 @@ namespace TImCoreyLambdaLesson
         }
 
 
-        private static void FromSelectWhereTwoSources()
+        private static void SelectWhereTwoSources()
         {
 
             Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
@@ -208,9 +209,35 @@ namespace TImCoreyLambdaLesson
             var results = (from c in contacts
                            select new { c.FirstName,
                                         c.LastName,
-                                        Addresses = addresses.Where(x =>
-                                        x.ContactId == c.Id) });
+                                        Addresses = addresses.Where(a =>
+                                        a.ContactId == c.Id) });
                            
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName} " +
+                    $"- {item.Addresses.Count() }");
+            }
+
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
+        }
+
+
+        private static void SelectWhereManyToMany()
+        {
+
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
+
+            //Does the same as above, but via a many to many approach
+            var results = (from c in contacts
+                           select new
+                           {
+                               c.FirstName,
+                               c.LastName,
+                               Addresses = addresses.Where(a =>
+                               c.Addresses.Contains(a.Id))
+                           });
+
 
             foreach (var item in results)
             {
