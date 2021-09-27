@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TImCoreyLambdaLesson.Models;
 
 namespace TImCoreyLambdaLesson
@@ -13,18 +14,21 @@ namespace TImCoreyLambdaLesson
         {
             data = SampleData.GetContactData();
 
-            LambdaTestWhere();
-            LambdaTestSelect();
-            LambdaTestTake();
-            LambdaTestSkipTake();
+            //Lambda Tests:
+            Where();
+            Select();
+            Take();
+            SkipTake();
+            OrderByAscending();
+            OrderByDescending();
 
             Console.WriteLine("Done Processing!");
             Console.ReadLine();
         }
 
-        private static void LambdaTestWhere()
+        private static void Where()
         {
-            Console.WriteLine("Test - Where");
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
             var results = data.Where(x => x.Addresses.Count > 1);
 
@@ -33,12 +37,14 @@ namespace TImCoreyLambdaLesson
                 Console.WriteLine($"{item.FirstName} {item.LastName}");
             }
 
-            Console.WriteLine("End Test - Where \n");
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
 
-        private static void LambdaTestSelect()
+
+
+        private static void Select()
         {
-            Console.WriteLine("Test - Select");
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
             //Select outputs Ienumerable<string>
             //Note this trims down the input type, ContactModel, and outputs
@@ -50,12 +56,14 @@ namespace TImCoreyLambdaLesson
                 Console.WriteLine(item);
             }
 
-            Console.WriteLine("End Test - Select \n");
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
 
-        private static void LambdaTestTake()
+
+
+        private static void Take()
         {
-            Console.WriteLine("Test - Take");
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
             //Take doesn't need a Func, just an int.
             //How many items do you want? Returns IEnumerable<ContactModel>
@@ -66,12 +74,14 @@ namespace TImCoreyLambdaLesson
                 Console.WriteLine($"{item.FirstName} {item.LastName}");
             }
 
-            Console.WriteLine("End Test - Take  \n");
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
 
-        private static void LambdaTestSkipTake()
+
+
+        private static void SkipTake()
         {
-            Console.WriteLine("Test - Skip and Take");
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
 
             //Notice you can chain linq calls
             var results = data.Skip(2).Take(2);
@@ -81,8 +91,48 @@ namespace TImCoreyLambdaLesson
                 Console.WriteLine($"{item.FirstName} {item.LastName}");
             }
 
-            Console.WriteLine("End Test - Skip and Take  \n");
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
         }
+
+        private static void OrderByAscending()
+        {
+
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
+
+            //Takes a Func
+            var results = data.OrderBy(x => x.FirstName);
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName}");
+            }
+
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
+        }
+
+        private static void OrderByDescending()
+        {
+
+            Console.WriteLine($"Test - {MethodBase.GetCurrentMethod().Name}");
+
+            //Takes a Func
+            var results = data.OrderByDescending(x => x.FirstName);
+
+            foreach (var item in results)
+            {
+                Console.WriteLine($"{item.FirstName} {item.LastName}");
+            }
+
+            Console.WriteLine($"End Test - {MethodBase.GetCurrentMethod().Name}  \n");
+        }
+
+
+
+
+
+
+
+
 
 
         //Below is the explaination of the Lambda syntax
